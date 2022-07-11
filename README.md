@@ -12,6 +12,9 @@ List of contents:
    - `cv2.merge`
    - `cv2.imshow`
    - `cv2.waitKey`
+   - `cv2.bitwise_not`
+   - `cv2.bitwise_and`
+   - `cv2.bitwise_or`
 
 2. Simple Video Operation:
    - `cv2.VideoCapture`
@@ -25,6 +28,7 @@ List of contents:
    - `cv2.line`
 4. Edge/Corner detection:
    - `cv2.goodFeaturesToTrack`
+   - `cv2.Canny`
 
 5. perspective transform:
    - `cv2.drawContours` 
