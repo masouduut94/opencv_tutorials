@@ -1,18 +1,13 @@
 # Sepia Filter-like Effect
 import cv2
-import pygame
 import numpy as np
-import matplotlib.pyplot as plt
-from scipy.interpolate import UnivariateSpline
 
 
-def apply_sepia(image, display=True):
+def apply_sepia(image):
     """
     This function will create instagram Sepia filter like effect on an image.
     Args:
         image:  The image on which the filter is to be applied.
-        display: A boolean value that is if set to true the function displays the original image,
-                 and the output image, and returns nothing.
     Returns:
         output_image: A copy of the input image with the Sepia filter applied.
     """
@@ -57,25 +52,15 @@ def apply_sepia(image, display=True):
     # Convert the image back to uint8 type.
     output_image = np.array(output_image, dtype=np.uint8)
 
-    # Check if the original input image and the output image are specified to be displayed.
-    if display:
-
-        # Display the original input image and the output image.
-        plt.figure(figsize=[15, 15])
-        plt.subplot(121)
-        plt.imshow(image[:, :, ::-1])
-        plt.title("Input Image")
-        plt.axis('off')
-        plt.subplot(122)
-        plt.imshow(output_image[:, :, ::-1])
-        plt.title("Output Image")
-        plt.axis('off')
-    # Otherwise.
-    else:
-
-        # Return the output image.
-        return output_image
+    return output_image
 
 
-
+if __name__ == '__main__':
+    img = cv2.imread("../assets/IMAGES/woman-boat.jpg")
+    img = cv2.resize(img, (0, 0), fx=0.15, fy=0.15)
+    new_img = apply_sepia(img.copy())
+    cv2.imshow("result", new_img)
+    cv2.imshow("original", img)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
 
