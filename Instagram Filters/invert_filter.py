@@ -35,3 +35,9 @@ def apply_invert(image, display=True):
 
         # Return the output image.
         return output_image
+
+
+if __name__ == '__main__':
+    # Read a sample image and apply invert filter on it.
+    image = cv2.imread('media/sample16.jpg')
+    apply_invert(image)
