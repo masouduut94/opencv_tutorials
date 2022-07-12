@@ -1,4 +1,22 @@
+"""
+Source: https://bleedai.com/designing-advanced-image-filters-in-opencv-creating-instagram-filters-pt-3%E2%81%843/#pt1
+
+"""
+
 import cv2
+import numpy as np
+import pygame
+import matplotlib.pyplot as plt
+from cold_filter import apply_cold
+from warm_filter import apply_warm
+from sepia_filter import apply_sepia
+from gotham_filter import apply_gotham
+from invert_filter import apply_invert
+from stylization import apply_stylization
+from grayscale_filter import apply_grayscale
+from pencil_sketch import apply_pencil_sketch
+from sharpening_filter import apply_sharpening
+from detail_enhancing import apply_detail_enhancing
 
 
 def apply_selected_filter(image, filter_applied):
@@ -15,68 +33,68 @@ def apply_selected_filter(image, filter_applied):
     if filter_applied == 'Warm':
 
         # Apply the Warm Filter on the image.
-        output_image = apply_warm(image, display=False)
+        output_image = apply_warm(image)
 
     # Check if the specified filter to apply, is the Cold filter.
     elif filter_applied == 'Cold':
 
         # Apply the Cold Filter on the image.
-        output_image = apply_cold(image, display=False)
+        output_image = apply_cold(image)
 
     # Check if the specified filter to apply, is the Gotham filter.
     elif filter_applied == 'Gotham':
 
         # Apply the Gotham Filter on the image.
-        output_image = apply_gotham(image, display=False)
+        output_image = apply_gotham(image)
 
     # Check if the specified filter to apply, is the Grayscale filter.
     elif filter_applied == 'Grayscale':
 
         # Apply the Grayscale Filter on the image.
-        output_image = apply_grayscale(image, display=False)
+        output_image = apply_grayscale(image)
 
         # Check if the specified filter to apply, is the Sepia filter.
     if filter_applied == 'Sepia':
 
         # Apply the Sepia Filter on the image.
-        output_image = apply_sepia(image, display=False)
+        output_image = apply_sepia(image)
 
     # Check if the specified filter to apply, is the Pencil Sketch filter.
     elif filter_applied == 'Pencil Sketch':
 
         # Apply the Pencil Sketch Filter on the image.
-        output_image = apply_pencil_sketch(image, display=False)
+        output_image = apply_pencil_sketch(image)
 
     # Check if the specified filter to apply, is the Sharpening filter.
     elif filter_applied == 'Sharpening':
 
         # Apply the Sharpening Filter on the image.
-        output_image = apply_sharpening(image, display=False)
+        output_image = apply_sharpening(image)
 
     # Check if the specified filter to apply, is the Invert filter.
     elif filter_applied == 'Invert':
 
         # Apply the Invert Filter on the image.
-        output_image = apply_invert(image, display=False)
+        output_image = apply_invert(image)
 
     # Check if the specified filter to apply, is the Detail Enhancing filter.
     elif filter_applied == 'Detail Enhancing':
 
         # Apply the Detail Enhancing Filter on the image.
-        output_image = apply_detail_enhancing(image, display=False)
+        output_image = apply_detail_enhancing(image)
 
     # Check if the specified filter to apply, is the Stylization filter.
     elif filter_applied == 'Stylization':
 
         # Apply the Stylization Filter on the image.
-        output_image = apply_stylization(image, display=False)
+        output_image = apply_stylization(image)
 
     # Return the image with the selected filter applied.`
     return output_image
 
 
-def mouseCallback(event, x, y, flags, userdata):
-    '''
+def mouse_callback(event, x, y, flags, userdata):
+    """
     This function will update the filter to apply on the frame and capture images based on different mouse events.
     Args:
         event:    The mouse event that is captured.
@@ -84,7 +102,7 @@ def mouseCallback(event, x, y, flags, userdata):
         y:        The y-coordinate of the mouse pointer position on the window.
         flags:    It is one of the MouseEventFlags constants.
         userdata: The parameter passed from the `cv2.setMouseCallback()` function.
-    '''
+    """
     #  Access the filter applied, and capture image state variable.
     global filter_applied, capture_image
 
@@ -93,95 +111,94 @@ def mouseCallback(event, x, y, flags, userdata):
 
         # Check if the mouse pointer is over the camera icon ROI.
         if y >= (frame_height - 10) - camera_icon_height and \
-                x >= (frame_width // 2 - camera_icon_width // 2) and \
-                x & lt;= (frame_width // 2+camera_icon_width // 2):
+                (frame_width // 2 - camera_icon_width // 2) <= x <= (frame_width // 2 + camera_icon_width // 2):
 
             # Update the image capture state to True.
             capture_image = True
 
         # Check if the mouse pointer y-coordinate is over the filters ROI.
-        elif y & lt;= 10+preview_height:
+        elif y <= 10 + preview_height:
 
             # Check if the mouse pointer x-coordinate is over the Warm filter ROI.
-            if x > (int(frame_width // 11.6) - preview_width // 2) and \
-                    x & lt;(int(frame_width // 11.6)-preview_width // 2)+preview_width:
+            if (int(frame_width // 11.6) - preview_width // 2) < x <= (
+                    int(frame_width // 11.6) - preview_width // 2) + preview_width:
 
                 # Update the filter applied variable value to Warm.
                 filter_applied = 'Warm'
 
             # Check if the mouse pointer x-coordinate is over the Cold filter ROI.
-            elif x > (int(frame_width // 5.9) - preview_width // 2) and \
-                    x & lt;(int(frame_width // 5.9)-preview_width // 2)+preview_width:
+            elif (int(frame_width // 5.9) - preview_width // 2) < x < (
+                    int(frame_width // 5.9) - preview_width // 2) + preview_width:
 
                 # Update the filter applied variable value to Cold.
                 filter_applied = 'Cold'
 
             # Check if the mouse pointer x-coordinate is over the Gotham filter ROI.
-            elif x > (int(frame_width // 3.97) - preview_width // 2) and \
-                    x & lt;(int(frame_width // 3.97)-preview_width // 2)+preview_width:
+            elif (int(frame_width // 3.97) - preview_width // 2) < x < (
+                    int(frame_width // 3.97) - preview_width // 2) + preview_width:
 
                 # Update the filter applied variable value to Gotham.
                 filter_applied = 'Gotham'
 
             # Check if the mouse pointer x-coordinate is over the Grayscale filter ROI.
-            elif x > (int(frame_width // 2.99) - preview_width // 2) and \
-                    x & lt;(int(frame_width // 2.99)-preview_width // 2)+preview_width:
+            elif (int(frame_width // 2.99) - preview_width // 2) < x <= (
+                    int(frame_width // 2.99) - preview_width // 2) + preview_width:
 
                 # Update the filter applied variable value to Grayscale.
                 filter_applied = 'Grayscale'
 
             # Check if the mouse pointer x-coordinate is over the Sepia filter ROI.
-            elif x > (int(frame_width // 2.395) - preview_width // 2) and \
-                    x & lt;(int(frame_width // 2.395)-preview_width // 2)+preview_width:
+            elif (int(frame_width // 2.395) - preview_width // 2) < x < (
+                    int(frame_width // 2.395) - preview_width // 2) + preview_width:
 
                 # Update the filter applied variable value to Sepia.
                 filter_applied = 'Sepia'
 
             # Check if the mouse pointer x-coordinate is over the Normal filter ROI.
-            elif x > (int(frame_width // 2) - preview_width // 2) and \
-                    x & lt;(int(frame_width // 2)-preview_width // 2)+preview_width:
+            elif (int(frame_width // 2) - preview_width // 2) < x < (
+                    int(frame_width // 2) - preview_width // 2) + preview_width:
 
                 # Update the filter applied variable value to Normal.
                 filter_applied = 'Normal'
 
             # Check if the mouse pointer x-coordinate is over the Pencil Sketch filter ROI.
-            elif x > (frame_width // 1.715 - preview_width // 2) and \
-                    x & lt;(frame_width // 1.715-preview_width // 2)+preview_width:
+            elif (frame_width // 1.715 - preview_width // 2) < x <= (
+                    frame_width // 1.715 - preview_width // 2) + preview_width:
 
                 # Update the filter applied variable value to Pencil Sketch.
                 filter_applied = 'Pencil Sketch'
 
             # Check if the mouse pointer x-coordinate is over the Sharpening filter ROI.
-            elif x > (int(frame_width // 1.501) - preview_width // 2) and \
-                    x & lt;(int(frame_width // 1.501)-preview_width // 2)+preview_width:
+            elif (int(frame_width // 1.501) - preview_width // 2) < x < (
+                    int(frame_width // 1.501) - preview_width // 2) + preview_width:
 
                 # Update the filter applied variable value to Sharpening.
                 filter_applied = 'Sharpening'
 
             # Check if the mouse pointer x-coordinate is over the Invert filter ROI.
-            elif x > (int(frame_width // 1.335) - preview_width // 2) and \
-                    x & lt;(int(frame_width // 1.335)-preview_width // 2)+preview_width:
+            elif (int(frame_width // 1.335) - preview_width // 2) < x < (
+                    int(frame_width // 1.335) - preview_width // 2) + preview_width:
 
                 # Update the filter applied variable value to Invert.
                 filter_applied = 'Invert'
 
             # Check if the mouse pointer x-coordinate is over the Detail Enhancing filter ROI.
-            elif x > (int(frame_width // 1.202) - preview_width // 2) and \
-                    x & lt;(int(frame_width // 1.202)-preview_width // 2)+preview_width:
+            elif (int(frame_width // 1.202) - preview_width // 2) < x < (
+                    int(frame_width // 1.202) - preview_width // 2) + preview_width:
 
                 # Update the filter applied variable value to Detail Enhancing.
                 filter_applied = 'Detail Enhancing'
 
             # Check if the mouse pointer x-coordinate is over the Stylization filter ROI.
-            elif x > (int(frame_width // 1.094) - preview_width // 2) and \
-                    x & lt;(int(frame_width // 1.094)-preview_width // 2)+preview_width:
+            elif (int(frame_width // 1.094) - preview_width // 2) < x < (
+                    int(frame_width // 1.094) - preview_width // 2) + preview_width:
 
                 # Update the filter applied variable value to Stylization.
                 filter_applied = 'Stylization'
 
 
 # Initialize the VideoCapture object to read from the webcam.
-camera_video = cv2.VideoCapture(1, cv2.CAP_DSHOW)
+camera_video = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 camera_video.set(3, 1280)
 camera_video.set(4, 960)
 
@@ -189,7 +206,7 @@ camera_video.set(4, 960)
 cv2.namedWindow('Instagram Filters', cv2.WINDOW_NORMAL)
 
 # Attach the mouse callback function to the window.
-cv2.setMouseCallback('Instagram Filters', mouseCallback)
+cv2.setMouseCallback('Instagram Filters', mouse_callback)
 
 # Initialize a variable to store the current applied filter.
 filter_applied = 'Normal'
@@ -200,7 +217,7 @@ filters = None
 
 # Initialize the pygame modules and load the image-capture music file.
 pygame.init()
-pygame.mixer.music.load("media/camerasound.mp3")
+pygame.mixer.music.load("C:/Users/masoud/PycharmProjects/opencv_tutorials/assets/SOUNDS/mixkit-arcade-game-jump-coin-216.wav")
 
 # Initialize a variable to store the image capture state.
 capture_image = False
@@ -226,19 +243,19 @@ while camera_video.isOpened():
     frame = cv2.flip(frame, 1)
 
     # Check if the filters variable doesnot contain the filters.
-    if not (filters):
+    if not filters:
         # Update the filters variable to store a dictionary containing multiple
         # copies of the frame with all the filters applied.
-        filters = {'Normal': frame.copy(), 'Warm': applyWarm(frame, display=False),
-                   'Cold': applyCold(frame, display=False),
-                   'Gotham': applyGotham(frame, display=False),
-                   'Grayscale': applyGrayscale(frame, display=False),
-                   'Sepia': applySepia(frame, display=False),
-                   'Pencil Sketch': applyPencilSketch(frame, display=False),
-                   'Sharpening': applySharpening(frame, display=False),
-                   'Invert': applyInvert(frame, display=False),
-                   'Detail Enhancing': applyDetailEnhancing(frame, display=False),
-                   'Stylization': applyStylization(frame, display=False)}
+        filters = {'Normal': frame.copy(), 'Warm': apply_warm(frame),
+                   'Cold': apply_cold(frame),
+                   'Gotham': apply_gotham(frame),
+                   'Grayscale': apply_grayscale(frame),
+                   'Sepia': apply_sepia(frame),
+                   'Pencil Sketch': apply_pencil_sketch(frame),
+                   'Sharpening': apply_sharpening(frame),
+                   'Invert': apply_invert(frame),
+                   'Detail Enhancing': apply_detail_enhancing(frame),
+                   'Stylization': apply_stylization(frame)}
 
     # Initialize a list to store the previews of the filters.
     filters_previews = []
@@ -277,7 +294,7 @@ while camera_video.isOpened():
     # Check if any filter is selected.
     if filter_applied != 'Normal':
         # Apply the selected Filter on the frame.
-        frame = applySelectedFilter(frame, filter_applied)
+        frame = apply_selected_filter(frame, filter_applied)
 
     # Check if the image capture state is True.
     if capture_image:
@@ -292,19 +309,19 @@ while camera_video.isOpened():
         cv2.waitKey(100)
 
         # Display the captured image.
-        plt.close();
+        plt.close()
         plt.figure(figsize=[10, 10])
-        plt.imshow(frame[:, :, ::-1]);
-        plt.title("Captured Image");
-        plt.axis('off');
+        plt.imshow(frame[:, :, ::-1])
+        plt.title("Captured Image")
+        plt.axis('off')
 
         # Update the image capture state to False.
         capture_image = False
 
     # Check if the camera icon variable doesnot contain the camera icon image.
-    if not (camera_icon):
+    if not camera_icon:
         # Read a camera icon png image with its blue, green, red, and alpha channel.
-        camera_iconBGRA = cv2.imread('media/cameraicon.png', cv2.IMREAD_UNCHANGED)
+        camera_iconBGRA = cv2.imread('../assets/IMAGES/woman-boat.jpg', cv2.IMREAD_UNCHANGED)
 
         # Resize the camera icon image to the 1/12th of the frame width,
         # while keeping the aspect ratio constant.
@@ -322,9 +339,7 @@ while camera_video.isOpened():
         camera_icon_alpha = camera_iconBGRA[:, :, -1]
 
     # Get the region of interest of the frame where the camera icon image will be placed.
-    frame_roi = frame[(frame_height - 10) - camera_icon_height: (frame_height - 10),
-                (frame_width // 2 - camera_icon_width // 2): \
-                (frame_width // 2 - camera_icon_width // 2) + camera_icon_width]
+    frame_roi = frame[(frame_height - 10) - camera_icon_height: (frame_height - 10),(frame_width // 2 - camera_icon_width // 2): (frame_width // 2 - camera_icon_width // 2) + camera_icon_width]
 
     # Overlay the camera icon over the frame by updating the pixel values of the frame
     # at the indexes where the alpha channel of the camera icon image has the value 255.
@@ -335,59 +350,37 @@ while camera_video.isOpened():
     #######################################################################################
 
     # Overlay the Warm Filter preview on the frame.
-    frame[10: 10 + preview_height,
-    (int(frame_width // 11.6) - preview_width // 2): \
-    (int(frame_width // 11.6) - preview_width // 2) + preview_width] = filters_previews[1]
+    frame[10: 10 + preview_height, (int(frame_width // 11.6) - preview_width // 2): (int(frame_width // 11.6) - preview_width // 2) + preview_width] = filters_previews[1]
 
     # Overlay the Cold Filter preview on the frame.
-    frame[10: 10 + preview_height,
-    (int(frame_width // 5.9) - preview_width // 2): \
-    (int(frame_width // 5.9) - preview_width // 2) + preview_width] = filters_previews[2]
+    frame[10: 10 + preview_height, (int(frame_width // 5.9) - preview_width // 2): (int(frame_width // 5.9) - preview_width // 2) + preview_width] = filters_previews[2]
 
     # Overlay the Gotham Filter preview on the frame.
-    frame[10: 10 + preview_height,
-    (int(frame_width // 3.97) - preview_width // 2): \
-    (int(frame_width // 3.97) - preview_width // 2) + preview_width] = filters_previews[3]
+    frame[10: 10 + preview_height, (int(frame_width // 3.97) - preview_width // 2): (int(frame_width // 3.97) - preview_width // 2) + preview_width] = filters_previews[3]
 
     # Overlay the Grayscale Filter preview on the frame.
-    frame[10: 10 + preview_height,
-    (int(frame_width // 2.99) - preview_width // 2): \
-    (int(frame_width // 2.99) - preview_width // 2) + preview_width] = filters_previews[4]
+    frame[10: 10 + preview_height, (int(frame_width // 2.99) - preview_width // 2): (int(frame_width // 2.99) - preview_width // 2) + preview_width] = filters_previews[4]
 
     # Overlay the Sepia Filter preview on the frame.
-    frame[10: 10 + preview_height,
-    (int(frame_width // 2.395) - preview_width // 2): \
-    (int(frame_width // 2.395) - preview_width // 2) + preview_width] = filters_previews[5]
+    frame[10: 10 + preview_height, (int(frame_width // 2.395) - preview_width // 2): (int(frame_width // 2.395) - preview_width // 2) + preview_width] = filters_previews[5]
 
     # Overlay the Normal frame (no filter) preview on the frame.
-    frame[10: 10 + preview_height,
-    (frame_width // 2 - preview_width // 2): \
-    (frame_width // 2 - preview_width // 2) + preview_width] = filters_previews[0]
+    frame[10: 10 + preview_height, (frame_width // 2 - preview_width // 2): (frame_width // 2 - preview_width // 2) + preview_width] = filters_previews[0]
 
     # Overlay the Pencil Sketch Filter preview on the frame.
-    frame[10: 10 + preview_height,
-    (int(frame_width // 1.715) - preview_width // 2): \
-    (int(frame_width // 1.715) - preview_width // 2) + preview_width] = filters_previews[6]
+    frame[10: 10 + preview_height, (int(frame_width // 1.715) - preview_width // 2): (int(frame_width // 1.715) - preview_width // 2) + preview_width] = filters_previews[6]
 
     # Overlay the Sharpening Filter preview on the frame.
-    frame[10: 10 + preview_height,
-    (int(frame_width // 1.501) - preview_width // 2): \
-    (int(frame_width // 1.501) - preview_width // 2) + preview_width] = filters_previews[7]
+    frame[10: 10 + preview_height, (int(frame_width // 1.501) - preview_width // 2): (int(frame_width // 1.501) - preview_width // 2) + preview_width] = filters_previews[7]
 
     # Overlay the Invert Filter preview on the frame.
-    frame[10: 10 + preview_height,
-    (int(frame_width // 1.335) - preview_width // 2): \
-    (int(frame_width // 1.335) - preview_width // 2) + preview_width] = filters_previews[8]
+    frame[10: 10 + preview_height, (int(frame_width // 1.335) - preview_width // 2): (int(frame_width // 1.335) - preview_width // 2) + preview_width] = filters_previews[8]
 
     # Overlay the Detail Enhancing Filter preview on the frame.
-    frame[10: 10 + preview_height,
-    (int(frame_width // 1.202) - preview_width // 2): \
-    (int(frame_width // 1.202) - preview_width // 2) + preview_width] = filters_previews[9]
+    frame[10: 10 + preview_height, (int(frame_width // 1.202) - preview_width // 2): (int(frame_width // 1.202) - preview_width // 2) + preview_width] = filters_previews[9]
 
     # Overlay the Stylization Filter preview on the frame.
-    frame[10: 10 + preview_height,
-    (int(frame_width // 1.094) - preview_width // 2): \
-    (int(frame_width // 1.094) - preview_width // 2) + preview_width] = filters_previews[10]
+    frame[10: 10 + preview_height, (int(frame_width // 1.094) - preview_width // 2): (int(frame_width // 1.094) - preview_width // 2) + preview_width] = filters_previews[10]
 
     #######################################################################################
 
@@ -395,11 +388,10 @@ while camera_video.isOpened():
     cv2.imshow('Instagram Filters', frame)
 
     # Wait for 1ms. If a key is pressed, retreive the ASCII code of the key.
-    k = cv2.waitKey(1) & amp;
-    0xFF
+    k = cv2.waitKey(1) & 0xFF
 
     # Check if 'ESC' is pressed and break the loop.
-    if (k == 27):
+    if k == 27:
         break
 
 # Release the VideoCapture Object and close the windows.
