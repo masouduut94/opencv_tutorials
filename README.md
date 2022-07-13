@@ -5,13 +5,13 @@ List of contents:
 
 1. Simple image Operations:
    - `cv2.imread`
-   - `cv2.imwrite`
-   - `cv2.cvtColor`
    - `cv2.resize`
-   - `cv2.split`
-   - `cv2.merge`
    - `cv2.imshow`
    - `cv2.waitKey`
+   - `cv2.cvtColor`
+   - `cv2.imwrite`
+   - `cv2.split`
+   - `cv2.merge`
    - `cv2.bitwise_not`
    - `cv2.bitwise_and`
    - `cv2.bitwise_or`
