@@ -30,16 +30,21 @@ List of contents:
    - `cv2.bitwise_and`
    - `cv2.bitwise_or`
 
-5. Edge/Corner Detection:
+5. Rotation/Translation:
+   - `cv2.rotate`
+   - `cv2.getRotationMatrix2D`
+   - `cv2.warpAffine`
+
+6. Edge/Corner Detection:
    - `cv2.goodFeaturesToTrack`
    - `cv2.Canny`
 
-6. Perspective Transform:
+7. Perspective Transform:
    - `cv2.drawContours` 
    - `cv2.getPerspectiveTransform`
    - `cv2.warpPerspective`
 
-7. Object detection 
+8. Object detection 
    - `cv2.dnn.readNet`
    - `cv2.dnn.blobFromImage`
    - `cv2.dnn.NMSBoxes`
