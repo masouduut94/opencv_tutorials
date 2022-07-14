@@ -3,7 +3,7 @@ libraries.
 
 List of contents:
 
-1. Simple image Operations:
+1. Simple Image Operations:
    - `cv2.imread`
    - `cv2.resize`
    - `cv2.imshow`
@@ -12,25 +12,34 @@ List of contents:
    - `cv2.imwrite`
    - `cv2.split`
    - `cv2.merge`
-   - `cv2.bitwise_not`
-   - `cv2.bitwise_and`
-   - `cv2.bitwise_or`
+   - `cv2.destroyAllWindows`
 
 2. Simple Video Operation:
    - `cv2.VideoCapture`
    - `cv2.VideoWriter`
    - `cv2.VideoWriter_fourcc`
 
-3. Drawing on images:
+3. Drawing on Images:
    - `cv2.putText`
    - `cv2.circle`
    - `cv2.rectangle`
    - `cv2.line`
-4. Edge/Corner detection:
+
+4. Thresholding and Bitwise Operation:
+   - `cv2.bitwise_not`
+   - `cv2.bitwise_and`
+   - `cv2.bitwise_or`
+
+5. Edge/Corner Detection:
    - `cv2.goodFeaturesToTrack`
    - `cv2.Canny`
 
-5. perspective transform:
+6. Perspective Transform:
    - `cv2.drawContours` 
    - `cv2.getPerspectiveTransform`
    - `cv2.warpPerspective`
+
+7. Object detection 
+   - `cv2.dnn.readNet`
+   - `cv2.dnn.blobFromImage`
+   - `cv2.dnn.NMSBoxes`
