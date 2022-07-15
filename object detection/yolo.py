@@ -10,11 +10,11 @@ import numpy as np
 import time
 
 # Load YOLO
-yolo_tiny_weights = 'yolo-tiny/yolov3-tiny.weights'
-yolo_tiny_cfg = 'yolo-tiny/config.cfg'
+yolo_tiny_weights = '../assets/yolo/tiny/yolov3-tiny.weights'
+yolo_tiny_cfg = '../assets/yolo/tiny/config.cfg'
 
-yolo_608_weights = "yolov3-608/yolov3.weights"
-yolo_608_cfg = "yolov3-608/config.cfg"
+yolo_608_weights = "../assets/yolo/608/yolov3.weights"
+yolo_608_cfg = "../assets/yolo/608/config.cfg"
 
 net = cv2.dnn.readNet(yolo_608_weights, yolo_608_cfg)  # Original yolov3
 
