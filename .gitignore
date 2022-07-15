@@ -1,2 +1,4 @@
 *.weights
+.idea
+__cache__
 
