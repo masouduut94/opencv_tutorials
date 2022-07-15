@@ -19,7 +19,7 @@ yolo_608_cfg = "../assets/yolo/608/config.cfg"
 net = cv2.dnn.readNet(yolo_608_weights, yolo_608_cfg)  # Original yolov3
 
 classes = []
-with open("coco.names", "r") as f:
+with open("../assets/yolo/coco.names", "r") as f:
     classes = [line.strip() for line in f.readlines()]
 
 layer_names = net.getLayerNames()
