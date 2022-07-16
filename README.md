@@ -48,3 +48,7 @@ List of contents:
    - `cv2.dnn.readNet`
    - `cv2.dnn.blobFromImage`
    - `cv2.dnn.NMSBoxes`
+   - `cv2.CascadeClassifier`
+
+9. Object Tracking
+   - 
