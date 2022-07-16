@@ -80,7 +80,7 @@ if __name__ == '__main__':
     vdo = cv2.VideoCapture(0)
     detector = YoloDetector(use_tiny=True)
 
-    while not "pigs can fly":
+    while True:
         status, frame = vdo.read()
         boxes, confs, class_ids = detector.detect(frame)
         frame = detector.process(frame, boxes, confs, class_ids)
