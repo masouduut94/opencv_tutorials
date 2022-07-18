@@ -4,10 +4,10 @@ import time
 
 
 class YoloMeta:
-    TINY_WEIGHTS = '../assets/yolo/tiny/yolov3-tiny.weights'
-    TINY_CFG = '../assets/yolo/tiny/config.cfg'
-    BIG_WEIGHTS = "../assets/yolo/608/yolov3.weights"
-    BIG_CFG = "../assets/yolo/608/config.cfg"
+    TINY_WEIGHTS = '../assets/yolov3/tiny/yolov3-tiny.weights'
+    TINY_CFG = '../assets/yolov3/tiny/config.cfg'
+    BIG_WEIGHTS = "../assets/yolov3/608/yolov3.weights"
+    BIG_CFG = "../assets/yolov3/608/config.cfg"
 
 
 class YoloDetector:
@@ -17,7 +17,7 @@ class YoloDetector:
 
         self.net = cv2.dnn.readNet(self.weights, self.cfg)
         self.classes = []
-        with open("../assets/yolo/coco.names", "r") as f:
+        with open("../assets/yolov3/coco.names", "r") as f:
             self.classes = [line.strip() for line in f.readlines()]
 
         layer_names = self.net.getLayerNames()

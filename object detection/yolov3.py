@@ -10,16 +10,16 @@ import numpy as np
 import time
 
 # Load YOLO
-yolo_tiny_weights = '../assets/yolo/tiny/yolov3-tiny.weights'
-yolo_tiny_cfg = '../assets/yolo/tiny/config.cfg'
+yolo_tiny_weights = '../assets/yolov3/tiny/yolov3-tiny.weights'
+yolo_tiny_cfg = '../assets/yolov3/tiny/config.cfg'
 
-yolo_608_weights = "../assets/yolo/608/yolov3.weights"
-yolo_608_cfg = "../assets/yolo/608/config.cfg"
+yolo_608_weights = "../assets/yolov3/608/yolov3.weights"
+yolo_608_cfg = "../assets/yolov3/608/config.cfg"
 
 net = cv2.dnn.readNet(yolo_608_weights, yolo_608_cfg)  # Original yolov3
 
 classes = []
-with open("../assets/yolo/coco.names", "r") as f:
+with open("../assets/yolov3/coco.names", "r") as f:
     classes = [line.strip() for line in f.readlines()]
 
 layer_names = net.getLayerNames()
