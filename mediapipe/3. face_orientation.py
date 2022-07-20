@@ -16,13 +16,13 @@ while cap.isOpened():
     status, frame = cap.read()
 
     st = time()
-    image = cv2.cvtColor(cv2.flip(image, 1), cv2.COLOR_BGR2RGB)
+    image = cv2.cvtColor(cv2.flip(frame, 1), cv2.COLOR_BGR2RGB)
 
-    image.flags.writable = False
+    # image.flags.writable = False
 
     results = face_mesh.process(frame)
 
-    image.flags.writable = True
+    # image.flags.writable = True
 
     image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 
@@ -55,7 +55,7 @@ while cap.isOpened():
 
             distance_matrix = np.zeros((4, 1), dtype=np.float64)
 
-            success, rot_vec, trans_vec, cv2.solvPNP(face_3d, face_2d, cam_matrix, distance_matrix)
+            success, rot_vec, trans_vec = cv2.solvePnP(face_3d, face_2d, cam_matrix, distance_matrix)
 
             rmat, jac = cv2.Rodrigues(rot_vec)
 
@@ -83,9 +83,9 @@ while cap.isOpened():
 
             cv2.line(image, p1, p2, (255, 0, 0), 3)
             cv2.putText(image, text, (20, 50), font, 2, (0, 255, 0), 2)
-            cv2.putText(image, "X: "+str(np.round(x, 2)), (500, 50), font, )
-            cv2.putText(image, "Y: "+str(np.round(y, 2)), (500, 100), font, )
-            cv2.putText(image, "Z: "+str(np.round(z, 2)), (500, 150), font, )
+            cv2.putText(image, "X: "+str(np.round(x, 2)), (500, 50), font, 2, (0, 255, 0), 2)
+            cv2.putText(image, "Y: "+str(np.round(y, 2)), (500, 100), font, 2, (0, 255, 0), 2)
+            cv2.putText(image, "Z: "+str(np.round(z, 2)), (500, 150), font, 2, (0, 255, 0), 2)
 
         end = time()
         tot = end - st
@@ -96,7 +96,7 @@ while cap.isOpened():
         cv2.putText(image, f'FPS: {int(fps)}', (20, 450), font, 1.5, (0, 255, 0), 2)
         mp_drawing.draw_landmarks(image=image,
                                   landmark_list=face_landmarks,
-                                  connections=mp_face_mesh,
+                                  connections=mp_face_mesh.FACEMESH_CONTOURS,
                                   landmark_drawing_spec=drawing_spec,
                                   connection_drawing_spec=drawing_spec)
 
