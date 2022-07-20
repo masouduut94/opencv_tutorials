@@ -16,7 +16,7 @@ while cap.isOpened():
     status, frame = cap.read()
 
     st = time()
-    image = cv2.cvtColor(cv2.flip(frame, 1), cv2.COLOR_BGR2RGB)
+    # image = cv2.cvtColor(cv2.flip(frame, 1), cv2.COLOR_BGR2RGB)
 
     # image.flags.writable = False
 
@@ -24,7 +24,7 @@ while cap.isOpened():
 
     # image.flags.writable = True
 
-    image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
+    image = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
 
     h, w, _ = image.shape
     face_3d = []
@@ -82,24 +82,25 @@ while cap.isOpened():
             p2 = (int(nose_2d[0]+y*10), int(nose_2d[1] - x * 10))
 
             cv2.line(image, p1, p2, (255, 0, 0), 3)
-            cv2.putText(image, text, (20, 50), font, 2, (0, 255, 0), 2)
-            cv2.putText(image, "X: "+str(np.round(x, 2)), (500, 50), font, 2, (0, 255, 0), 2)
-            cv2.putText(image, "Y: "+str(np.round(y, 2)), (500, 100), font, 2, (0, 255, 0), 2)
-            cv2.putText(image, "Z: "+str(np.round(z, 2)), (500, 150), font, 2, (0, 255, 0), 2)
+            cv2.putText(image, text, (20, 50), font, 1, (0, 255, 0), 2)
+            cv2.putText(image, "X: "+str(np.round(x, 2)), (500, 50), font, 1, (0, 255, 0), 2)
+            cv2.putText(image, "Y: "+str(np.round(y, 2)), (500, 100), font, 1, (0, 255, 0), 2)
+            cv2.putText(image, "Z: "+str(np.round(z, 2)), (500, 150), font, 1, (0, 255, 0), 2)
 
         end = time()
         tot = end - st
         fps = 1/tot
 
         print("FPS: ", fps)
-
+        # FIXME: fix the amount of looking left and right | up and down
         cv2.putText(image, f'FPS: {int(fps)}', (20, 450), font, 1.5, (0, 255, 0), 2)
         mp_drawing.draw_landmarks(image=image,
                                   landmark_list=face_landmarks,
-                                  connections=mp_face_mesh.FACEMESH_CONTOURS,
+                                  connections=mp_face_mesh.FACEMESH_FACE_OVAL,
                                   landmark_drawing_spec=drawing_spec,
                                   connection_drawing_spec=drawing_spec)
 
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     cv2.imshow("Head Pose Estimation", image)
 
     if cv2.waitKey(5) & 0xFF == 27:
