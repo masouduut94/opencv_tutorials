@@ -3,6 +3,10 @@ Resources:
 - https://pjreddie.com/darknet/yolo/
 - https://pyimagesearch.com/2018/11/12/yolo-object-detection-with-opencv/
 
+SetUp for GPU inference:
+- https://learnopencv.com/how-to-use-opencv-dnn-module-with-nvidia-gpu-on-windows/
+
+
 """
 
 import cv2
