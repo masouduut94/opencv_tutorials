@@ -20,7 +20,10 @@ yolo_tiny_cfg = '../assets/yolov3/tiny/config.cfg'
 yolo_608_weights = "../assets/yolov3/608/yolov3.weights"
 yolo_608_cfg = "../assets/yolov3/608/config.cfg"
 
-net = cv2.dnn.readNet(yolo_608_weights, yolo_608_cfg)  # Original yolov3
+net = cv2.dnn.readNet(yolo_tiny_weights, yolo_tiny_cfg)  # Original yolov3
+
+net.setPreferableBackend(cv2.dnn.DNN_BACKEND_CUDA)
+net.setPreferableTarget(cv2.dnn.DNN_TARGET_CUDA)
 
 classes = []
 with open("../assets/yolov3/coco.names", "r") as f:
@@ -34,13 +37,12 @@ colors = np.random.uniform(0, 255, size=(len(classes), 3))
 
 cap = cv2.VideoCapture(0)  # 0 for 1st webcam
 font = cv2.FONT_HERSHEY_PLAIN
-starting_time = time.time()
+
 frame_id = 0
 
 while True:
+    st = time.time()
     _, frame = cap.read()
-    frame_id += 1
-
     height, width, channels = frame.shape
     # detecting objects
     blob = cv2.dnn.blobFromImage(frame, 0.00392, (320, 320), (0, 0, 0), True, crop=False)  # reduce 416 to 320
@@ -87,9 +89,9 @@ while True:
             cv2.rectangle(frame, (x, y), (x + w, y + h), color, 2)
             cv2.putText(frame, label + " " + str(round(confidence, 2)), (x, y + 30), font, 1, (255, 255, 255), 2)
 
-    elapsed_time = time.time() - starting_time
-    fps = frame_id / elapsed_time
-    cv2.putText(frame, "FPS:" + str(round(fps, 2)), (10, 50), font, 2, (0, 0, 0), 1)
+    elapsed_time = time.time() - st
+    fps = f"FPS: {(1 / elapsed_time):.2f}"
+    cv2.putText(frame, fps, (10, 50), font, 2, (0, 0, 0), 1)
 
     cv2.imshow("Image", frame)
     key = cv2.waitKey(1)  # wait 1ms the loop will start again, and we will process the next frame

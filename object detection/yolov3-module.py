@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-import time
+from time import time
 
 
 class YoloMeta:
@@ -11,11 +11,14 @@ class YoloMeta:
 
 
 class YoloDetector:
-    def __init__(self, use_tiny=True):
+    def __init__(self, use_tiny=True, use_gpu=False):
         self.weights = YoloMeta.TINY_WEIGHTS if use_tiny else YoloMeta.BIG_WEIGHTS
         self.cfg = YoloMeta.TINY_CFG if use_tiny else YoloMeta.BIG_CFG
 
         self.net = cv2.dnn.readNet(self.weights, self.cfg)
+        if use_gpu:
+            self.net.setPreferableBackend(cv2.dnn.DNN_BACKEND_CUDA)
+            self.net.setPreferableTarget(cv2.dnn.DNN_TARGET_CUDA)
         self.classes = []
         with open("../assets/yolov3/coco.names", "r") as f:
             self.classes = [line.strip() for line in f.readlines()]
@@ -78,12 +81,16 @@ class YoloDetector:
 
 if __name__ == '__main__':
     vdo = cv2.VideoCapture(0)
-    detector = YoloDetector(use_tiny=True)
+    detector = YoloDetector(use_tiny=False, use_gpu=True)
 
     while True:
+        st = time()
         status, frame = vdo.read()
         boxes, confs, class_ids = detector.detect(frame)
         frame = detector.process(frame, boxes, confs, class_ids)
+        end = time() - st
+        fps = f"FPS: {(1 / end):.2f}"
+        cv2.putText(frame, fps, (10, 50), detector.font, 2, (0, 0, 0), 1)
 
         cv2.imshow("Image", frame)
         key = cv2.waitKey(1)  # wait 1ms the loop will start again, and we will process the next frame
