@@ -16,13 +16,14 @@ def find_item(items: List[Path], name: str, parent=None):
 
 class AssetMeta:
     def __init__(self):
-        self.haar_files = list(Path('haarcascade-xml').glob('*'))
-        self.images = list(Path('IMAGES').rglob('*'))
-        self.videos = list(Path('VIDEOS').rglob('*'))
-        self.yolov3_files = list(Path('yolov3').rglob('*'))
-        self.yolov4_files = list(Path('yolov4').rglob('*'))
-        self.fontt = Path('Yekan.ttf').resolve()
-        self.classes = Path('yolov3/coco.names').resolve()
+        base_path = Path(__file__).parent
+        self.haar_files = list(Path(f'{base_path}/haarcascade-xml').glob('*'))
+        self.images = list(Path(f'{base_path}/IMAGES').rglob('*'))
+        self.videos = list(Path(f'{base_path}/VIDEOS').rglob('*'))
+        self.yolov3_files = list(Path(f'{base_path}/yolov3').rglob('*'))
+        self.yolov4_files = list(Path(f'{base_path}/yolov4').rglob('*'))
+        self.fontt = Path(f'{base_path}/Yekan.ttf').resolve()
+        self.classes = Path(f'{base_path}/yolov3/coco.names').resolve()
         self._init_haar()
         self._init_yolov3()
         self._init_yolov4()
@@ -147,4 +148,3 @@ if __name__ == '__main__':
     print(m.YOLOV3)
     print(m.YOLOV3_TINY)
     print(m.CUSTOM_FONT)
-
