@@ -32,22 +32,22 @@ def reset_canvas():
     predicted = []
     dr_frame = np.zeros((400, 400, 3), np.uint8)
 
+if __name__ == '__main__':
+    cv2.namedWindow("Sample")
+    cv2.setMouseCallback("Sample", on_mouse)
+    kalman_fil = cv2.KalmanFilter(4, 2)
+    kalman_fil.measurementMatrix = np.array([[1, 0, 0, 0], [0, 1, 0, 0]], np.float32)
+    kalman_fil.transitionMatrix = np.array([[1, 0, 1, 0], [0, 1, 0, 1], [0, 0, 1, 0], [0, 0, 0, 1]], np.float32)
+    kalman_fil.processNoiseCov = np.array([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]], np.float32) * 0.03
 
-cv2.namedWindow("Sample")
-cv2.setMouseCallback("Sample", on_mouse)
-kalman_fil = cv2.KalmanFilter(4, 2)
-kalman_fil.measurementMatrix = np.array([[1, 0, 0, 0], [0, 1, 0, 0]], np.float32)
-kalman_fil.transitionMatrix = np.array([[1, 0, 1, 0], [0, 1, 0, 1], [0, 0, 1, 0], [0, 0, 0, 1]], np.float32)
-kalman_fil.processNoiseCov = np.array([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]], np.float32) * 0.03
-
-while True:
-    kalman_fil.correct(mp)
-    tp = kalman_fil.predict()
-    predicted.append((int(tp[0]), int(tp[1])))
-    paint_canvas()
-    cv2.imshow("Output", dr_frame)
-    k = cv2.waitKey(30) & 0xFF
-    if k == ord('q'):
-        break
-    if k == ord('r'):
-        reset_canvas()
+    while True:
+        kalman_fil.correct(mp)
+        tp = kalman_fil.predict()
+        predicted.append((int(tp[0]), int(tp[1])))
+        paint_canvas()
+        cv2.imshow("Output", dr_frame)
+        k = cv2.waitKey(30) & 0xFF
+        if k == ord('q'):
+            break
+        if k == ord('r'):
+            reset_canvas()
