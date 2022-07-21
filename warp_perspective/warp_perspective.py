@@ -1,6 +1,8 @@
 import cv2
 import numpy as np
 
+from assets import AssetMeta
+
 
 def get_points(event, x, y, flags, params):
     if event == cv2.EVENT_LBUTTONDOWN:
@@ -26,7 +28,8 @@ def get_perspective():
 
 if __name__ == '__main__':
     points = []
-    img = cv2.imread("../assets/IMAGES/book.jpeg")
+    meta = AssetMeta()
+    img = cv2.imread(meta.IMG_BOOK[0])
 
     while True:
         cv2.imshow('image', img)

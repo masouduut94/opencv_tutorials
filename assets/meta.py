@@ -48,6 +48,12 @@ class AssetMeta:
         self.car_xml = [i for i in self.haar_files if i.as_posix().endswith('cars.xml')][0].resolve()
 
     @property
+    def IMG_BOOK(self):
+        b1 = self.find_item(self.images, name='book.jpeg', parent='ppt')
+        b2 = self.find_item(self.images, name='book_2.png', parent='ppt')
+        return b1, b2
+
+    @property
     def IMG_CHESS(self):
         ch1 = self.find_item(self.images, name='chess1.png', parent='corner')
         ch2 = self.find_item(self.images, name='chess2.jpg', parent='corner')
@@ -73,8 +79,8 @@ class AssetMeta:
 
     @property
     def PPT(self):
-        im1 = self.find_item(self.images, name='book.jpeg', parent='perspective_transform')
-        im2 = self.find_item(self.images, name='book_2.png', parent='perspective_transform')
+        im1 = self.find_item(self.images, name='book.jpeg', parent='ppt')
+        im2 = self.find_item(self.images, name='book_2.png', parent='ppt')
         return im1, im2
 
     @property
