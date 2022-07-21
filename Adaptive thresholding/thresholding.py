@@ -1,7 +1,10 @@
 import cv2
 import numpy as np
+from assets import AssetMeta
 
-img = cv2.imread('../assets/IMAGES/aventador.png')
+
+meta = AssetMeta()
+img = cv2.imread(meta.IMG_NORMAL[0])
 img = cv2.resize(img, None, fx=.5, fy=.5)
 img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
