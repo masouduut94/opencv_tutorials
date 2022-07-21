@@ -2,6 +2,7 @@ import cv2
 import mediapipe as mp
 import numpy as np
 import keyboard
+from assets import AssetMeta
 
 mp_face_detection = mp.solutions.face_detection
 mp_drawing = mp.solutions.drawing_utils
@@ -13,7 +14,8 @@ with mp_face_detection.FaceDetection(min_detection_confidence=0.5) as face_detec
     while cap.isOpened():
         success, image = cap.read()
         # image = cv2.imread("JB.jpg")
-        imgFront = cv2.imread("../assets/IMAGES/glasses_2.png", cv2.IMREAD_UNCHANGED)
+        meta = AssetMeta()
+        imgFront = cv2.imread(meta.IMG_FACE_ON[1], cv2.IMREAD_UNCHANGED)
         s_h, s_w, _ = imgFront.shape
 
         imageHeight, imageWidth, _ = image.shape
