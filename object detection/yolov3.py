@@ -14,19 +14,19 @@ import numpy as np
 import time
 
 # Load YOLO
-yolo_tiny_weights = '../assets/yolov3/tiny/yolov3-tiny.weights'
-yolo_tiny_cfg = '../assets/yolov3/tiny/config-yolov3.cfg'
+from assets import AssetMeta
 
-yolo_608_weights = "../assets/yolov3/608/yolov3.weights"
-yolo_608_cfg = "../assets/yolov3/608/config-yolov3.cfg"
+meta = AssetMeta()
 
-net = cv2.dnn.readNet(yolo_tiny_weights, yolo_tiny_cfg)  # Original yolov3
+weight, cfg, names_txt = meta.YOLOV3
+
+net = cv2.dnn.readNet(weight, cfg)  # Original yolov3
 
 net.setPreferableBackend(cv2.dnn.DNN_BACKEND_CUDA)
 net.setPreferableTarget(cv2.dnn.DNN_TARGET_CUDA)
 
 classes = []
-with open("../assets/yolov3/coco.names", "r") as f:
+with open(names_txt, "r") as f:
     classes = [line.strip() for line in f.readlines()]
 
 layer_names = net.getLayerNames()
@@ -96,7 +96,7 @@ while True:
     cv2.imshow("Image", frame)
     key = cv2.waitKey(1)  # wait 1ms the loop will start again, and we will process the next frame
 
-    if key == 27:  # esc key stops the process
+    if key == ord('q'):  # esc key stops the process
         break
 
 cap.release()
