@@ -8,7 +8,7 @@ def find_item(items: List[Path], name: str, parent=None):
 
     items = [item for item in items if item.name == name]
     if len(items):
-        return items[0].resolve()
+        return items[0].resolve().as_posix()
     else:
         print(f"{name} not found")
         return None
@@ -22,7 +22,7 @@ class AssetMeta:
         self.videos = list(Path(f'{base_path}/VIDEOS').rglob('*'))
         self.yolov3_files = list(Path(f'{base_path}/yolov3').rglob('*'))
         self.yolov4_files = list(Path(f'{base_path}/yolov4').rglob('*'))
-        self.fontt = Path(f'{base_path}/Yekan.ttf').resolve()
+        self.fontt = Path(f'{base_path}/Yekan.ttf').resolve().as_posix()
         self.classes = Path(f'{base_path}/yolov3/coco.names').resolve()
         self._init_haar()
         self._init_yolov3()
