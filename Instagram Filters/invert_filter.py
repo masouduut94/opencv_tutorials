@@ -1,5 +1,7 @@
 import cv2
 
+from assets import AssetMeta
+
 
 def apply_invert(image):
     """
@@ -17,8 +19,9 @@ def apply_invert(image):
 
 if __name__ == '__main__':
     # Read a sample image and apply invert filter on it.
-    img = cv2.imread('../assets/IMAGES/woman-boat.jpg')
-    img = cv2.resize(img, (0, 0), fx=0.15, fy=0.15)
+    meta = AssetMeta()
+    img = cv2.imread(meta.IMG_NORMAL[0])
+    img = cv2.resize(img, (960, 540))
     new_img = apply_invert(img.copy())
     cv2.imshow("result", new_img)
     cv2.imshow("original", img)
