@@ -2,24 +2,25 @@ import cv2
 import numpy as np
 from time import time
 
+from assets import AssetMeta
 
-class YoloMeta:
-    TINY_WEIGHTS = '../assets/yolov3/tiny/yolov3-tiny.weights'
-    TINY_CFG = '../assets/yolov3/tiny/config-yolov3.cfg'
-    BIG_WEIGHTS = "../assets/yolov3/608/yolov3.weights"
-    BIG_CFG = "../assets/yolov3/608/config-yolov3.cfg"
+meta = AssetMeta()
 
 
 class YoloDetector:
     def __init__(self, use_tiny=True, use_gpu=False):
-        self.weights = YoloMeta.TINY_WEIGHTS if use_tiny else YoloMeta.BIG_WEIGHTS
-        self.cfg = YoloMeta.TINY_CFG if use_tiny else YoloMeta.BIG_CFG
+        cfg1, w1, n1 = meta.YOLOV3
+        cfg2, w2, _ = meta.YOLOV3_TINY
+
+        self.weights = w2 if use_tiny else w1
+        self.cfg = cfg2 if use_tiny else cfg1
         self.net = cv2.dnn.readNet(self.weights, self.cfg)
+
         if use_gpu:
             self.net.setPreferableBackend(cv2.dnn.DNN_BACKEND_CUDA)
             self.net.setPreferableTarget(cv2.dnn.DNN_TARGET_CUDA)
         self.classes = []
-        with open("../assets/yolov3/coco.names", "r") as f:
+        with open(n1, "r") as f:
             self.classes = [line.strip() for line in f.readlines()]
 
         layer_names = self.net.getLayerNames()
