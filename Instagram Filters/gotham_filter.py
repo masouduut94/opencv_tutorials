@@ -2,6 +2,8 @@ import cv2
 import numpy as np
 from scipy.interpolate import UnivariateSpline
 
+from assets import AssetMeta
+
 
 def apply_gotham(image):
     """
@@ -48,8 +50,9 @@ def apply_gotham(image):
 
 
 if __name__ == '__main__':
-    img = cv2.imread("../assets/IMAGES/woman-boat.jpg")
-    img = cv2.resize(img, (0, 0), fx=0.15, fy=0.15)
+    meta = AssetMeta()
+    img = cv2.imread(meta.IMG_NORMAL[0])
+    img = cv2.resize(img, (960, 540))
     new_img = apply_gotham(img.copy())
     cv2.imshow("result", new_img)
     cv2.imshow("original", img)
