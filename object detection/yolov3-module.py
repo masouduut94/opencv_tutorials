@@ -5,16 +5,15 @@ from time import time
 
 class YoloMeta:
     TINY_WEIGHTS = '../assets/yolov3/tiny/yolov3-tiny.weights'
-    TINY_CFG = '../assets/yolov3/tiny/config.cfg'
+    TINY_CFG = '../assets/yolov3/tiny/config-yolov3.cfg'
     BIG_WEIGHTS = "../assets/yolov3/608/yolov3.weights"
-    BIG_CFG = "../assets/yolov3/608/config.cfg"
+    BIG_CFG = "../assets/yolov3/608/config-yolov3.cfg"
 
 
 class YoloDetector:
     def __init__(self, use_tiny=True, use_gpu=False):
         self.weights = YoloMeta.TINY_WEIGHTS if use_tiny else YoloMeta.BIG_WEIGHTS
         self.cfg = YoloMeta.TINY_CFG if use_tiny else YoloMeta.BIG_CFG
-
         self.net = cv2.dnn.readNet(self.weights, self.cfg)
         if use_gpu:
             self.net.setPreferableBackend(cv2.dnn.DNN_BACKEND_CUDA)

@@ -13,7 +13,7 @@ with mp_face_detection.FaceDetection(min_detection_confidence=0.5) as face_detec
     while cap.isOpened():
         success, image = cap.read()
         # image = cv2.imread("JB.jpg")
-        imgFront = cv2.imread("../assets/IMAGES/a.png", cv2.IMREAD_UNCHANGED)
+        imgFront = cv2.imread("../assets/IMAGES/glasses_2.png", cv2.IMREAD_UNCHANGED)
         s_h, s_w, _ = imgFront.shape
 
         imageHeight, imageWidth, _ = image.shape

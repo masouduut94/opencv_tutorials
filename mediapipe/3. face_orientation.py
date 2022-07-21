@@ -92,7 +92,6 @@ while cap.isOpened():
         fps = 1/tot
 
         print("FPS: ", fps)
-        # FIXME: fix the amount of looking left and right | up and down
         cv2.putText(image, f'FPS: {int(fps)}', (20, 450), font, 1.5, (0, 255, 0), 2)
         mp_drawing.draw_landmarks(image=image,
                                   landmark_list=face_landmarks,
@@ -103,7 +102,7 @@ while cap.isOpened():
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     cv2.imshow("Head Pose Estimation", image)
 
-    if cv2.waitKey(5) & 0xFF == 27:
+    if cv2.waitKey(5) & 0xFF == ord('q'):
         break
 
 

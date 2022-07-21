@@ -26,7 +26,7 @@ def get_perspective():
 
 if __name__ == '__main__':
     points = []
-    img = cv2.imread("../assets/IMAGES/book_crooked.jpeg")
+    img = cv2.imread("../assets/IMAGES/book.jpeg")
 
     while True:
         cv2.imshow('image', img)
@@ -35,7 +35,7 @@ if __name__ == '__main__':
         if cv2.waitKey(1) & 0xff == ord('q'):
             break
         elif cv2.waitKey(1) & 0xff == ord('r'):
-            img = cv2.imread("../assets/IMAGES/book_crooked.jpeg")
+            img = cv2.imread("../assets/IMAGES/book.jpeg")
             points = []
             cv2.imshow('image', img)
             cv2.setMouseCallback('image', get_points)

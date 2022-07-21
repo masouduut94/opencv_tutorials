@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 from meta import Coordinates as CO, Colors as C
 
-video_file = "../assets/VIDEOS/ping-pong.mp4"
+video_file = "../assets/VIDEOS/optflow/ping-pong.mp4"
 cap = cv2.VideoCapture(video_file)
 status, frame = cap.read()
 

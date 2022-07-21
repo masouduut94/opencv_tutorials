@@ -15,10 +15,10 @@ import time
 
 # Load YOLO
 yolo_tiny_weights = '../assets/yolov3/tiny/yolov3-tiny.weights'
-yolo_tiny_cfg = '../assets/yolov3/tiny/config.cfg'
+yolo_tiny_cfg = '../assets/yolov3/tiny/config-yolov3.cfg'
 
 yolo_608_weights = "../assets/yolov3/608/yolov3.weights"
-yolo_608_cfg = "../assets/yolov3/608/config.cfg"
+yolo_608_cfg = "../assets/yolov3/608/config-yolov3.cfg"
 
 net = cv2.dnn.readNet(yolo_tiny_weights, yolo_tiny_cfg)  # Original yolov3
 

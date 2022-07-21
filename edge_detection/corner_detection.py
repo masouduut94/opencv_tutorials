@@ -8,8 +8,8 @@ from pathlib import Path
 import numpy as np
 import cv2
 
-path1 = Path("../assets/IMAGES/chess_board.PNG")
-path2 = Path("../assets/IMAGES/chess_board_side.jpg")
+path1 = Path("../assets/IMAGES/corner/chess1.png")
+path2 = Path("../assets/IMAGES/corner/chess2.jpg")
 
 img = cv2.imread(path1.as_posix())
 img = cv2.resize(img, (0, 0), fx=0.5, fy=0.5)

@@ -17,7 +17,7 @@ mp_face_mesh = mp.solutions.face_mesh
 face_mesh = mp_face_mesh.FaceMesh()
 
 # Loading image
-image = cv2.imread('../assets/IMAGES/tom/tom1.jpeg')
+image = cv2.imread('../assets/IMAGES/tom/face.jpeg')
 h, w, _ = image.shape
 
 result = face_mesh.process(image)
