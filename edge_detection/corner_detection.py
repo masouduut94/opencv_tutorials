@@ -7,43 +7,43 @@ import random
 from pathlib import Path
 import numpy as np
 import cv2
+from assets import AssetMeta
 
-path1 = Path("../assets/IMAGES/corner/chess1.png")
-path2 = Path("../assets/IMAGES/corner/chess2.jpg")
+if __name__ == '__main__':
 
-img = cv2.imread(path1.as_posix())
-img = cv2.resize(img, (0, 0), fx=0.5, fy=0.5)
-gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    meta = AssetMeta()
 
-N_corners_to_track = 50
+    path1, path2 = meta.IMG_CHESS
 
-"""
-# maxCorners: how many corners
-# qualityLevel: minimum confidence
-# minDistance: Euclidean distance between 2 corners must be greater than this to include that corner.
-"""
-corners = cv2.goodFeaturesToTrack(gray,
-                                  maxCorners=N_corners_to_track,
-                                  qualityLevel=0.01,
-                                  minDistance=10)
+    img = cv2.imread(path2)
+    img = cv2.resize(img, (0, 0), fx=0.5, fy=0.5)
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-corners = np.int32(corners)
-for corner in corners:
-    x, y = corner.ravel()
-    cv2.circle(img, (x, y), 10, (255, 0, 255), 3)
+    N_corners_to_track = 50
 
-# ####### Just for fun!!! ####
-# ####### Just for fun!!! ####
-# for i, _ in enumerate(corners):
-#     for j in range(i+1, len(corners)):
-#
-#         corner1 = tuple(corners[i][0])
-#         corner2 = tuple(corners[j][0])
-#
-#         color = tuple([random.randint(0, 255) for _ in range(3)])
-#         cv2.line(img, corner1, corner2, color, 1)
+    """
+    # maxCorners: how many corners
+    # qualityLevel: minimum confidence
+    # minDistance: Euclidean distance between 2 corners must be greater than this to include that corner.
+    """
 
+    corners = cv2.goodFeaturesToTrack(gray, maxCorners=N_corners_to_track, qualityLevel=0.01, minDistance=10)
+    corners = np.int32(corners)
+    for corner in corners:
+        x, y = corner.ravel()
+        cv2.circle(img, (x, y), 10, (255, 0, 255), 3)
 
-cv2.imshow('FRAME', img)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+    # ####### Just for fun!!! ####
+    # ####### Just for fun!!! ####
+    # for i, _ in enumerate(corners):
+    #     for j in range(i+1, len(corners)):
+    #
+    #         corner1 = tuple(corners[i][0])
+    #         corner2 = tuple(corners[j][0])
+    #
+    #         color = tuple([random.randint(0, 255) for _ in range(3)])
+    #         cv2.line(img, corner1, corner2, color, 1)
+
+    cv2.imshow('FRAME', img)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
