@@ -16,7 +16,19 @@ cv2.destroyAllWindows()
 
 AND_operation = cv2.bitwise_and(sq, circle)
 cv2.imshow("AND operation", AND_operation)
-cv2.waitKey()
+cv2.waitKey(0)
+
+AND_operation = cv2.bitwise_or(sq, circle)
+cv2.imshow("AND operation", AND_operation)
+cv2.waitKey(0)
+
+AND_operation = cv2.bitwise_not(sq, circle)
+cv2.imshow("AND operation", AND_operation)
+cv2.waitKey(0)
+
+AND_operation = cv2.bitwise_xor(sq, circle)
+cv2.imshow("AND operation", AND_operation)
+cv2.waitKey(0)
 
 
 
