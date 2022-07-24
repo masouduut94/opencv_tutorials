@@ -32,6 +32,7 @@ def reset_canvas():
     predicted = []
     dr_frame = np.zeros((400, 400, 3), np.uint8)
 
+
 if __name__ == '__main__':
     cv2.namedWindow("Sample")
     cv2.setMouseCallback("Sample", on_mouse)

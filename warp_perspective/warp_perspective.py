@@ -3,7 +3,7 @@ import numpy as np
 
 from assets import AssetMeta
 
-
+# FIXME: The code doesn't work somehow!
 def get_points(event, x, y, flags, params):
     if event == cv2.EVENT_LBUTTONDOWN:
         cv2.circle(img, (x, y), 4, (255, 0, 0), -1)
@@ -18,7 +18,7 @@ def get_perspective():
     width = points[1][0] - points[0][0]
     height = points[2][1] - points[0][1]
 
-    points1 = np.float32(points[0:4])
+    points1 = np.float32(points[:])
     points2 = np.float32([[0, 0], [width, 0], [0, height], [width, height]])
 
     M = cv2.getPerspectiveTransform(points1, points2)
@@ -38,7 +38,8 @@ if __name__ == '__main__':
         if cv2.waitKey(1) & 0xff == ord('q'):
             break
         elif cv2.waitKey(1) & 0xff == ord('r'):
-            img = cv2.imread("../assets/IMAGES/book.jpeg")
+            img = cv2.imread(meta.IMG_BOOK[0])
+
             points = []
             cv2.imshow('image', img)
             cv2.setMouseCallback('image', get_points)
