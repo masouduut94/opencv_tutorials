@@ -13,7 +13,6 @@ cv2.waitKey(0)
 
 cv2.destroyAllWindows()
 
-
 AND_operation = cv2.bitwise_and(sq, circle)
 cv2.imshow("AND operation", AND_operation)
 cv2.waitKey(0)
