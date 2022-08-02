@@ -3,6 +3,7 @@ import numpy as np
 
 from assets import AssetMeta
 
+
 # FIXME: The code doesn't work somehow!
 def get_points(event, x, y, flags, params):
     if event == cv2.EVENT_LBUTTONDOWN:
